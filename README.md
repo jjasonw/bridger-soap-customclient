@@ -1,6 +1,8 @@
-# Bridger SOAP Custom Client
+# Bridger SOAP API Data Extractor
 
-Java 21 SOAP client for the LexisNexis Bridger Insight **12.1** Search API. The project reads search requests from a CSV file, invokes the Search service, writes CSV results, and can serialize SOAP responses as formatted XML for diagnostics.
+Java 21 data-extraction client for the LexisNexis Bridger Insight **12.1** Search API. The application processes search requests in batches, receives SOAP XML responses, and extracts the required response fields into configurable CSV datasets.
+
+The CSV output is the primary customization surface for downstream data use cases, including scoring-rule validation and the creation of representative sample datasets for Agent training. XML response formatting remains available for diagnostics, while `CsvExporter` defines the fields selected for the analytical dataset.
 
 ## Requirements
 
@@ -77,11 +79,14 @@ bridger-soap-customclient/
 │   └── resources/
 │       ├── API12.1.wsdl
 │       └── application.properties.example
+├── examples/
+│   ├── input.csv
+│   └── output_sample.csv
 └── target/generated-sources/cxf/       # Generated during Maven builds; do not edit
 ```
 
 `BridgerSoapClientApp121` is the active application entry point. `BridgerSoapClientApp120_deprecated` is retained only for legacy 12.0 compatibility.
-The runtime `input.csv` and generated output files are local data and are not included in the repository.
+`examples/input.csv` and `examples/output_sample.csv` contain synthetic sample data only. Runtime input and generated output files remain local and are not included in the repository.
 
 ## Configuration
 
@@ -135,10 +140,13 @@ target/bridger-soap-customclient-1.0.0-jar-with-dependencies.jar
 Place `input.csv` in the application's current working directory, then run either from IntelliJ IDEA or with the packaged JAR:
 
 ```powershell
+Copy-Item examples\input.csv .\input.csv
 java -jar target\bridger-soap-customclient-1.0.0-jar-with-dependencies.jar
 ```
 
 The 12.1 application reads `input.csv` from the working directory. With `bridger.output.csv.enabled=true`, it writes a timestamped `output_*.csv` file to that same directory. When CSV output is disabled, formatted XML responses are logged; individual XML response files may also be written below `output\xml_response_*.xml`.
+
+`examples/output_sample.csv` shows the output column layout with fabricated placeholder values. It is illustrative only and is not a real API response or screening result.
 
 ## IntelliJ IDEA setup
 
