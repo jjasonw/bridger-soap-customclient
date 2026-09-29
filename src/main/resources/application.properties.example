@@ -1,0 +1,19 @@
+# API Endpoint
+bridger.api.endpoint=https://staging.bridger.lexisnexis.eu/LN.WebServices/12.1/XGServices.svc/Search
+bridger.api.servicenamespace=https://bridgerinsight.lexisnexis.com/BridgerInsight.Web.Services.Interfaces.12.1
+
+# Set BRIDGER_API_CLIENT_ID, BRIDGER_API_USER_ID, and BRIDGER_API_PASSWORD
+# in the environment instead of storing credentials in this file.
+
+# Request Configuration
+bridger.request.predefinedSearchName=List Screening
+
+# Output Configuration
+bridger.output.directory=output
+bridger.output.csv.enabled=true
+
+# Logging Configuration
+org.slf4j.simpleLogger.defaultLogLevel=info
+org.slf4j.simpleLogger.log.com.lexisnexis.bridger=debug
+org.slf4j.simpleLogger.showDateTime=true
+org.slf4j.simpleLogger.dateTimeFormat=yyyy-MM-dd HH:mm:ss
